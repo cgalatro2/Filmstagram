@@ -46,4 +46,5 @@ mongoose.connect(uri, {
 // 	res.render('new');
 // });
 
-app.listen(process.env.PORT, process.env.IP);
+app.listen(3000);
+// app.listen(process.env.PORT, process.env.IP);
