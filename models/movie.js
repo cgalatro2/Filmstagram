@@ -12,4 +12,4 @@ var movieSchema = new mongoose.Schema({
    ]
 });
 
-module.exports = mongoose.model("Movie", campgroundSchema);
+module.exports = mongoose.model("Movie", movieSchema);

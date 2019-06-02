@@ -1,0 +1,33 @@
+<% include ../partials/header %> 
+<div class='container'>
+	<div class="jumbotron">
+    	<div class="container">
+        	<h1> Welcome To MovieBlog</h1>
+            <p>
+            	<a class="btn btn-primary btn-lg" href="/movies/new">Add New Movie</a>
+            </p>
+            <p>
+            	<form action="/movies" method="GET" class="form-inline" id="movie-search">
+                	<div class="form-group">
+                		<input type="text" name="search" placeholder="Movie search..." class="form-control">
+                	</div>
+            	</form>
+            </p>
+		</div>
+	</div>
+     
+	<div class="row text-center flex-wrap" id="campground-grid">
+    	<% movies.forEach(function(movie){ %>
+        	<div class="col-md-3 col-sm-6">
+                <div class="card">
+					<img class="card-img-top" src="<%= movie.image %>" alt="Card image cap">
+        			<h4 class='card-title'><%= movie.name %></h4>
+                	<p class='card-text'>
+                    	<a href="/movies/<%= movie._id %>" class="btn btn-primary">More Info</a>
+                    </p>
+                </div>
+        	</div>
+		<% }); %>
+	</div>
+</div>
+<% include ../partials/footer %>

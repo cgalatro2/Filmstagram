@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+
+<div class='container'>
+	<div class="row">
+		<div class="col-md-9">
+			<div class="card">
+				<img class="card-img-top" src="<%= movie.image %>">
+				<div class="caption-full">
+					<h4 class='card-title'><a><%= movie.name %></a></h4>
+					<div class='container'>
+						<p class='card-text'><%= movie.description %></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card">
+				<div class="card-text">
+					<a class="btn btn-success" href="/movies/<%= movie._id %>/comments/new">Add New Comment</a>
+				</div>
+				<hr>
+				<% movie.comments.forEach(function(comment){ %>
+					<div class='container'>
+						<div class="row">
+							<div class="col-md-12">
+								<div class='card-title'>
+									<strong><%= comment.author.username %></strong>
+									<span class="float-right"><%= moment(comment.createdAt).fromNow() %></span>
+								</div>
+								<div class='card-text'>
+									<div class='card-text'>
+										<p>
+											<%= comment.text %>
+										</p>
+										<hr>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<% }) %>
+			</div>
+		</div>
+	</div>
+</div>
