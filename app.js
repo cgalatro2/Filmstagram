@@ -80,5 +80,5 @@ app.use("/", indexRoutes);
 app.use("/movies", movieRoutes);
 app.use("/movies/:id/comments", commentRoutes);
 
-app.listen(3000);
-// app.listen(process.env.PORT, process.env.IP);
+// app.listen(3000);
+app.listen(process.env.PORT, process.env.IP);
