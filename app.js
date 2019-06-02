@@ -46,6 +46,4 @@ mongoose.connect(uri, {
 // 	res.render('new');
 // });
 
-app.listen(3000, () => {
-	console.log('MovieBlog Server Started');
-});
+app.listen(process.env.PORT, process.env.IP);
