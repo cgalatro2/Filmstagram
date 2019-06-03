@@ -43,6 +43,30 @@ router.get('/new', (req, res) => {
 	res.render('movies/new');
 });
 
+//CREATE - add new movie to DB
+router.post("/", isLoggedIn, (req, res) => {
+  	// get data from form and add to movies array
+  	var title = req.body.title;
+  	var image = req.body.image;
+  	var desc = req.body.description;
+  	// var author = {
+  	// id: req.user._id,
+  	// username: req.user.username
+  	// };
+	var author = req.user._id;
+    var newMovie = {title: title, image: image, description: desc, author: author};
+    // Create a new movie and save to DB
+    Movie.create(newMovie, (err, newlyCreated) => {
+        if(err){
+            console.log(err);
+        } else {
+            //redirect back to campgrounds page
+            console.log(newlyCreated);
+            res.redirect("/movies");
+        }
+    });
+});
+
 // SHOW - shows more info about one movie
 router.get("/:id", (req, res) => {
     //find the movie with provided ID

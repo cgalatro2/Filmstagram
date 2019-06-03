@@ -1,15 +1,16 @@
-const express 		= require('express'),
-	  bodyParser 	= require('body-parser'),
-	  mongoose 		= require('mongoose'),
-	  passport    = require("passport"),
-	  LocalStrategy = require("passport-local"),
-	  flash        = require("connect-flash"),
-	  Movie  = require("./models/movie"),
-	  Comment     = require("./models/comment"),
-      User        = require("./models/user"),
-	  session = require("express-session"),
-	  seedDB      = require("./seeds"),
-	  methodOverride = require("method-override");
+const express 			= require('express'),
+	  bodyParser 		= require('body-parser'),
+	  mongoose 			= require('mongoose'),
+	  passport    		= require("passport"),
+	  LocalStrategy 	= require("passport-local"),
+	  flash 			= require('express-flash'),
+	  cookieParser = require("cookie-parser"),
+	  Movie  			= require("./models/movie"),
+	  Comment   		= require("./models/comment"),
+      User        		= require("./models/user"),
+	  session 			= require("express-session"),
+	  seedDB      		= require("./seeds"),
+	  methodOverride	= require("method-override");
 
 // requiring routes
 const indexRoutes		= require("./routes/index"),
@@ -42,43 +43,33 @@ app.use(require("express-session")({
     saveUninitialized: false
 }));
 
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// app.get("/movies", function(req, res){
-//   if(req.query.search && req.xhr) {
-//       const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-//       // Get all campgrounds from DB
-//       Movie.find({name: regex}, function(err, allMovies){
-//          if(err){
-//             console.log(err);
-//          } else {
-//             res.status(200).json(allMovies);
-//          }
-//       });
-//   } else {
-//       // Get all campgrounds from DB
-//       Movie.find({}, function(err, allMovies){
-//          if(err){
-//              console.log(err);
-//          } else {
-//             if(req.xhr) {
-//               res.json(allMovies);
-//             } else {
-//               res.render("movies/index",{movies: allMovies, page: 'movies'});
-//             }
-//          }
-//       });
-//   }
-// });
+app.use(cookieParser('secret'));
+app.use(session({
+    cookie: { maxAge: 60000 },
+    saveUninitialized: true,
+    resave: 'true',
+    secret: 'secret'
+}));
+app.use(flash());
+
+app.use((req, res, next) => {
+	res.locals.currentUser = req.user;
+    // if there's a flash message in the session request, make it available in the response, then delete it
+    res.locals.sessionFlash = req.session.sessionFlash;
+    delete req.session.sessionFlash;
+    next();
+});
 
 app.use("/", indexRoutes);
 app.use("/movies", movieRoutes);
 app.use("/movies/:id/comments", commentRoutes);
 
-// app.listen(3000);
-app.listen(process.env.PORT, process.env.IP);
+app.listen(3000);
+// app.listen(process.env.PORT, process.env.IP);
