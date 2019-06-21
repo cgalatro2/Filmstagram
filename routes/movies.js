@@ -82,4 +82,9 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// EDIT - show edit form for changing a movie
+router.get('/:id/edit', isLoggedIn, (req, res) => {
+	res.render('movies/edit', {movie: req.movie});
+});
+
 module.exports = router;

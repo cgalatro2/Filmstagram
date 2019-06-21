@@ -1,33 +1,52 @@
 <% include ../partials/header %> 
-<div class='container'>
-	<div class="jumbotron">
-    	<div class="container">
-        	<h1> Welcome To MovieBlog</h1>
-            <p>
-            	<a class="btn btn-primary btn-lg" href="/movies/new">Add New Movie</a>
-            </p>
-            <p>
-            	<form action="/movies" method="GET" class="form-inline" id="movie-search">
-                	<div class="form-group">
-                		<input type="text" name="search" placeholder="Movie search..." class="form-control">
-                	</div>
-            	</form>
-            </p>
+
+<div class="container m-5 px-5">
+	<div class="container ml-5 px-5">
+		
+		<div class="row">
+			<div class="col-8">
+				<% movies.forEach((movie) => { %>
+					<div class='row mb-5'>
+						<div class="card">
+							<div class='card-header'><%= movie.title %></div>
+							<img class="card-img-top" src="<%= movie.image %>" alt="Card image cap">
+							<p class='card-text'>
+								<h3>
+									COMMENTS
+								</h3>
+								<a href="/movies/<%= movie._id %>" class="btn btn-primary">More Info</a>
+							</p>
+						</div>
+					</div>
+				<% }); %>
+			</div>
+
+			<div class="col-4 sidenav">
+				<div class="nav flex-sm-column">
+					<a href="" class="nav-link pt-0 d-none d-sm-inline">SIDEBAR</a>
+					<div class="card" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title">Card title</h5>
+							<p class="card-text">
+								Some quick example text to build on the card title and make up the bulk
+								of the card's content.
+							</p>
+						</div>
+					</div>
+					<div class="card mt-3" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title">Card title</h5>
+							<p class="card-text">
+								Some quick example text to build on the card title and make up the bulk
+								of the card's content.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-     
-	<div class="row text-center flex-wrap" id="campground-grid">
-    	<% movies.forEach(function(movie){ %>
-        	<div class="col-md-3 col-sm-6">
-                <div class="card">
-					<img class="card-img-top" src="<%= movie.image %>" alt="Card image cap">
-        			<h4 class='card-title'><%= movie.name %></h4>
-                	<p class='card-text'>
-                    	<a href="/movies/<%= movie._id %>" class="btn btn-primary">More Info</a>
-                    </p>
-                </div>
-        	</div>
-		<% }); %>
+	
 	</div>
 </div>
+
 <% include ../partials/footer %>

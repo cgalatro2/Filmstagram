@@ -5,12 +5,48 @@ html {
   min-height: 100%;
 }
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  	/* Margin bottom by footer height */
+  	margin-bottom: 60px;
+	font-family: 'Cinzel', serif;
+	background-color: rgb(245,245,245);
+}
+
+#navbar {
+	background-color: white;
+	border-bottom: 1px solid rgb(211,211,211);
 }
 
 .navbar-brand {
+	color: dark;
+}
+
+.sidenav {
+	z-index: 1000;
+	position: fixed;
+	right: 33%;
+	width: 0;
+	height: 100%;
+}
+
+.sidenav a:hover {
+  color: #064579;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+
+
+.navbar-brand {
 	margin-left: 30px;
+	font-size: 1.1rem;
+}
+
+.nav-link {
+	font-size: 0.9rem;
 }
 
 .footer {
@@ -37,6 +73,14 @@ body {
 
 .thumbnail .caption-full {
     padding: 9px;
+}
+
+.fas.fa-film.fa-2x {
+	margin-right: 2.3rem;
+}
+
+#icon-div {
+	border-right: 1px solid black;
 }
 
 /* Google Map styles */
