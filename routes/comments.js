@@ -6,14 +6,14 @@ const middleware = require("../middleware");
 const { isLoggedIn, checkUserComment, isAdmin } = middleware;
 
 //Comments New
-router.get("/new", isLoggedIn, function(req, res){
-    // find campground by id
+router.get("/new", isLoggedIn, (req, res) => {
+    // find movie by id
     console.log(req.params.id);
-    Campground.findById(req.params.id, function(err, campground){
+    Movie.findById(req.params.id, (err, movie) => {
         if(err){
             console.log(err);
         } else {
-             res.render("comments/new", {campground: campground});
+             res.render("comments/new", {movie: movie});
         }
     });
 });

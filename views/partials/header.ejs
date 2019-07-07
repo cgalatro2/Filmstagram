@@ -2,42 +2,60 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Moviestagram</title>
-		<link href="https://fonts.googleapis.com/css?family=Cinzel:400,700&display=swap" rel="stylesheet">
+		<title>Filmstagram</title>
+		<link href="https://fonts.googleapis.com/css?family=Cookie&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/stylesheets/main.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,700&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    </head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
 	<body>
-		
-		<nav class="navbar navbar-expand-lg sticky-top" id='navbar'>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+		<nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     			<span class="navbar-toggler-icon"></span>
-  			</button>
-			
-			
+  		</button>
+
+
 			<div class="collapse navbar-collapse my-2" id="navbarSupportedContent">
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
 					<div class='mx-auto d-flex'>
 						<div id='icon-div'>
-							<i class="fas fa-film fa-2x"></i>
+							<a href='/movies' class="fas fa-video fa-2x text-dark mt-2"></a>
 						</div>
 						<div>
-							<a class="navbar-brand text-body" href="/movies">Moviestagram</a>
+							<a id='filmsta'  class="navbar-brand text-body" href="/movies">Filmstagram</a>
 						</div>
 					</div>
+
 					<div class='mx-auto d-flex'>
-						<span>
-							<a  class="nav-link text-dark <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>" href='/login'>Login </a>
-						</span>
-						<span>
-							<a  class="nav-link text-dark <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>" href='/register'>Sign Up</a>
-						</span>
-						<span>
-							<a  class="nav-link text-dark" href='/logout'>Logout</a>
-						</span>
+						<form>
+							<div class="cntr">
+								<input id='header-search' class="form-control" type="text" placeholder="Search">
+							</div>
+            </form>
 					</div>
-				</div>
-			</div>
-			
+
+					<div class='mx-auto d-flex'>
+						<% if (!currentUser) { %>
+							<span>
+								<a class="nav-link text-dark <%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>" href='/login'>Login</a>
+							</span>
+							<span>
+								<a class="nav-link text-dark <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>" href='/register'>Sign Up</a>
+							</span>
+						<% } else { %>
+							<span>
+								<a class="nav-link text-dark">Currently Signed In As <%= currentUser.username %></a>
+							</span>
+							<span>
+								<a class="nav-link text-dark" href='/logout'>Logout</a>
+							</span>
+						<% } %>
+					</div>
+
+		  </div>
+
 		</nav>

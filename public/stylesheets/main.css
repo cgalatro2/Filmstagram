@@ -1,101 +1,128 @@
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+html, body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: rgb(250, 250, 250);
 }
-body {
-  	/* Margin bottom by footer height */
-  	margin-bottom: 60px;
-	font-family: 'Cinzel', serif;
-	background-color: rgb(245,245,245);
+
+.article {
+  margin: 6rem 13.5rem;
+  background-color: white;
 }
 
 #navbar {
-	background-color: white;
-	border-bottom: 1px solid rgb(211,211,211);
+  overflow: hidden;
+  background-color: white;
+  transition: 0.4s; /* Adds a transition effect when the padding is decreased */
+  height: 4.4rem;
+  border-bottom: 1px solid rgb(230, 230, 230);
 }
 
-.navbar-brand {
-	color: dark;
-}
-
-.sidenav {
-	z-index: 1000;
-	position: fixed;
-	right: 33%;
-	width: 0;
-	height: 100%;
-}
-
-.sidenav a:hover {
-  color: #064579;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-
-
-
-
-.navbar-brand {
-	margin-left: 30px;
-	font-size: 1.1rem;
-}
-
-.nav-link {
-	font-size: 0.9rem;
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
+#header-search {
+  background-color: rgb(250, 250, 250);
+  border-radius: 3px;
+  height: 1.55rem;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #f5f5f5;
 }
 
-.container .text-muted {
-  margin: 20px 0;
+#header-search::-webkit-input-placeholder {
+  font-size: .85rem;
+  font-family: 'Open Sans', sans-serif;
+  margin: auto;
 }
 
-/* Thumbnail styles */
-.thumbnail img {
-    width: 100%;
+.form-control::placeholder {
+  font-size: .85rem;
+  font-family: 'Open Sans', sans-serif;
+  opacity: .8;
 }
 
-.thumbnail {
-    padding: 0;
+#login-div {
+  text-align: center;
 }
 
-.thumbnail .caption-full {
-    padding: 9px;
-}
-
-.fas.fa-film.fa-2x {
-	margin-right: 2.3rem;
+#login-title {
+  font-family: 'Cookie', cursive;
 }
 
 #icon-div {
 	border-right: 1px solid black;
 }
 
-/* Google Map styles */
-#map {
-	height: 400px;
+#user-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+}
+/* Add responsiveness - on screens less than 580px wide, display the navbar vertically instead of horizontally
+@media screen and (max-width: 580px) {
+  #navbar {
+    padding: 20px 10px !important; Use !important to make sure that JavaScript doesn't override the padding on small screens
+  }
+  #navbar a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  #navbar-right {
+    float: none;
+  }
+} */
+
+.container-fluid.mt-5.pt-4 {
+  background-color: rgb(250, 250, 250);
+}
+
+.card-header {
+  background-color: white;
+}
+
+.sidebar-section {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.sidebar-main {
+	position: absolute;
+	top: 0;
+	left: 0;
 	width: 100%;
+	height: 100%;
+  font-size: .85rem;
+
+	/* Position the items
+	// &:nth-child(2) { top: 25%; }
+	// &:nth-child(3) { top: 50%; }
+	// &:nth-child(4) { top: 75%; } */
 }
 
-/* Campground show page delete button */
-.delete-form {
-	display: inline-block;
+.make-me-sticky {
+  transition: 0.3s;
+  position: -webkit-sticky;
+	position: sticky;
+	top: 0;
 }
 
-/* Flexbox grid fix */
-.flex-wrap {
-  display:flex;
-  flex-wrap: wrap;
+.navbar-brand {
+	margin-left: .95rem;
+	font-size: 1.75rem;
+  transition: visibility 0.2s, opacity 0.2s linear;
+  font-family: 'Cookie', cursive;
+}
+
+.nav-link {
+	font-size: 0.9rem;
+}
+
+.fas.fa-video.fa-2x {
+	margin-right: 1.05rem;
+}
+
+.postcard {
+  height: 50rem;
+}
+
+.movie-img {
+  max-width: 100%;
+  max-height: 100%;
 }

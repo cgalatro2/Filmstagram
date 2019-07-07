@@ -11,7 +11,7 @@ function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 //INDEX - show all movies
-router.get("/", function(req, res){
+router.get("/", isLoggedIn, (req, res) => {
   if(req.query.search && req.xhr) {
       const regex = new RegExp(escapeRegex(req.query.search), 'gi');
       // Get all campgrounds from DB
@@ -23,17 +23,17 @@ router.get("/", function(req, res){
          }
       });
   } else {
-      // Get all campgrounds from DB
-      Movie.find({}, function(err, allMovies){
-         if(err){
-             console.log(err);
-         } else {
-            if(req.xhr) {
-              res.json(allMovies);
-            } else {
-              res.render("movies/index",{movies: allMovies, page: 'movies'});
-            }
-         }
+    // Get all campgrounds from DB
+    Movie.find({}, (err, allMovies) => {
+      if(err){
+        console.log(err);
+        } else {
+          if(req.xhr) {
+            res.json(allMovies);
+          } else {
+            res.render("movies/index",{movies: allMovies, page: 'movies'});
+          }
+        }
       });
   }
 });

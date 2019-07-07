@@ -1,3 +1,22 @@
-  
+<script>
+// When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
+    document.getElementById("navbar").style.height = "2.85rem";
+    document.getElementsByClassName('make-me-sticky')[0].style.paddingTop = '75px';
+    document.getElementById("filmsta").style.opacity = "0";
+    document.getElementById("icon-div").style.borderRight = "1px solid white";
+  } else {
+    document.getElementById("navbar").style.height = "4.4rem";
+    document.getElementsByClassName('make-me-sticky')[0].style.paddingTop = '0';
+    document.getElementById("filmsta").style.opacity = "1";
+    document.getElementById("icon-div").style.borderRight = "1px solid black";
+  }
+}
+
+</script>
+
   </body>
 </html>

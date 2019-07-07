@@ -1,5 +1,7 @@
-var Comment = require('../models/comment');
-var Movie = require('../models/movie');
+var Comment   = require('../models/comment'),
+    Movie     = require('../models/movie'),
+    flash 		= require('express-flash');
+
 module.exports = {
   isLoggedIn: (req, res, next) => {
       if (req.isAuthenticated()){
@@ -8,8 +10,8 @@ module.exports = {
       req.flash('error', 'You must be signed in to do that!');
       res.redirect('/login');
   },
-  checkUserMovie: function(req, res, next){
-    Movie.findById(req.params.id, function(err, foundMovie){
+  checkUserMovie: (req, res, next) => {
+    Movie.findById(req.params.id, (err, foundMovie) => {
       if(err || !foundMovie){
           console.log(err);
           req.flash('error', 'Sorry, that movie does not exist!');
@@ -46,4 +48,4 @@ module.exports = {
       res.redirect('back');
     }
   }
-};
+}

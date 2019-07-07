@@ -12,7 +12,7 @@ h1 {
 }
 
 #welcome {
-	font-family: 'Cinzel', serif;
+	font-family: 'Cookie', cursive;
 }
 
 #landing-header {
@@ -26,7 +26,7 @@ h1 {
   color: #fff;
 }
 
-.slideshow { 
+.slideshow {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -38,7 +38,7 @@ h1 {
   padding: 0;
 }
 
-.slideshow li { 
+.slideshow li {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -49,32 +49,32 @@ h1 {
   background-repeat: no-repeat;
   opacity: 0;
   z-index: 0;
-  animation: imageAnimation 50s linear infinite; 
+  animation: imageAnimation 50s linear infinite;
 }
 
-.slideshow li:nth-child(1) { 
+.slideshow li:nth-child(1) {
   background-image: url(https://scrapsfromtheloft.com/wp-content/uploads/2017/09/The-Godfather-1972-Marlon-Brando-as-Don-Vito-Corleone.jpg);
 }
-.slideshow li:nth-child(2) { 
+.slideshow li:nth-child(2) {
   background-image: url(https://www.gannett-cdn.com/-mm-/2aa0588efc78f1e1dc68b7d6262599a403d71410/c=0-653-2609-2127/local/-/media/2017/10/22/USATODAY/USATODAY/636442876816746052-1960-PSYCHO-18087417.JPG?width=3200&height=1680&fit=crop);
-  animation-delay: 10s; 
+  animation-delay: 10s;
 }
-.slideshow li:nth-child(3) { 
+.slideshow li:nth-child(3) {
   background-image: url(https://cdn-images-1.medium.com/max/1600/1*HWRvAdoYB-l-t3pJrVhMrA.jpeg);
-  animation-delay: 20s; 
+  animation-delay: 20s;
 }
-.slideshow li:nth-child(4) { 
+.slideshow li:nth-child(4) {
   background-image: url(https://www.riograndetheatre.org/wp-content/uploads/2018/06/Et-Extraterrestrial-Original-Ending-Script-Changes.jpg);
-  animation-delay: 30s; 
+  animation-delay: 30s;
 }
-.slideshow li:nth-child(5) { 
+.slideshow li:nth-child(5) {
   background-image: url(https://static.rogerebert.com/uploads/review/primary_image/reviews/great-movie-jaws-1975/hero_EB20000820REVIEWS088200301AR.jpg);
-  animation-delay: 40s; 
+  animation-delay: 40s;
 }
 
-@keyframes imageAnimation { 
-  0% { 
-    opacity: 0; 
+@keyframes imageAnimation {
+  0% {
+    opacity: 0;
     animation-timing-function: ease-in;
   }
   10% {
