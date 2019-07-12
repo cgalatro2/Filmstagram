@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Filmstagram</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/about.css">
+    <link href="https://fonts.googleapis.com/css?family=Cookie&display=swap" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+	</head>
+	<body>
+
+
+		<div class="video-container">
+
+		  <video autoplay loop>
+		    <source src="videos/film.mp4" type="video/mp4">
+		  </video>
+
+		  <div class="overlay mx-auto">
+
+				<div class="card">
+	        <div class="card-body">
+	  				<p class="card-text text-dark text-center" style='font-size: .85rem;'>
+	            <span style="font-family: 'Cookie', cursive; font-size: 1.3rem;">Filmstagram</span> is my first solo-project,
+							created with the intention of refining my understanding and implementation of RESTful routing and front-end
+							web design.
+						</p>
+						<p id='expl' class="card-text text-dark" style='font-size: .85rem;'>
+							This app has most of the same functionality as the website after which it is modeled, Instagram.
+							Users can create, edit, and delete their own posts, along with leave comments on both their own
+							publications as well as those of other users. This application was created using the Node.js
+							JavaScript run-time environment and contains more than 1,200 lines of code spread across roughly
+							14 different HTML, CSS, EJS, and JS files.
+						</p>
+						<hr>
+						<p class="card-text text-dark mb-1" style='font-size: .85rem;'>
+							The following NPM-installed packages, among others, allow for the
+							functionality of the application:
+						</p>
+						<div class="container">
+							<ul class="text-dark list-group list-group-flush" style='font-size: .85rem;'>
+								<li class="list-group-item">
+									Request, which provides access to the <a href='http://omdbapi.com/'>OMDb API</a>
+									and gives the user search capabilities
+								</li>
+								<li class="list-group-item">
+									Mongoose, which facilitates MongoDB object modeling
+								</li>
+								<li class="list-group-item">
+									Passport, for authenticating users and requests
+								</li>
+								<li class="list-group-item">
+									Express-session, which allows sessions to identify users across requests
+								</li>
+							</ul>
+						</div>
+	        </div>
+	        <a id='back-btn' href="/movies" class="btn btn-dark mb-2 mx-auto">Back</a>
+				</div>
+
+
+		  </div>
+
+		</div>
+
+		<script>
+
+		</script>
+	</body>
+</html>

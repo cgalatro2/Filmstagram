@@ -23,18 +23,27 @@
 
 					<div class='mx-auto d-flex'>
 						<div id='icon-div'>
-							<a href='/movies' class="fas fa-video fa-2x text-dark mt-2"></a>
+							<a href='/movies' class="fas fa-video fa-2x text-dark mt-1"
+								style='text-decoration: none;'
+							>
+							</a>
 						</div>
-						<div>
-							<a id='filmsta'  class="navbar-brand text-body" href="/movies">Filmstagram</a>
+						<div id='filmsta-div'>
+							<a id='filmsta' class="navbar-brand text-body py-0" href="/movies">
+								Filmstagram
+							</a>
 						</div>
 					</div>
 
 					<div class='mx-auto d-flex'>
-						<form>
-							<div class="cntr">
-								<input id='header-search' class="form-control" type="text" placeholder="Search">
-							</div>
+						<form action="/movies/search" method="GET">
+                <div class="cntr">
+                    <input id='header-search'
+											class="form-control" type="text"
+											placeholder="Search Movies/TV Series"
+											name="search" autocomplete="off"
+										>
+                </div>
             </form>
 					</div>
 
@@ -46,9 +55,12 @@
 							<span>
 								<a class="nav-link text-dark <%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>" href='/register'>Sign Up</a>
 							</span>
+							<span>
+								<a class="nav-link text-dark" href='/about'>About</a>
+							</span>
 						<% } else { %>
 							<span>
-								<a class="nav-link text-dark">Currently Signed In As <%= currentUser.username %></a>
+								<a class="nav-link text-dark" href='/about'>About</a>
 							</span>
 							<span>
 								<a class="nav-link text-dark" href='/logout'>Logout</a>

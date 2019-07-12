@@ -1,5 +1,6 @@
 var express = require("express");
 var router  = express.Router();
+var request = require('request');
 var Movie = require("../models/movie");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
@@ -36,6 +37,21 @@ router.get("/", isLoggedIn, (req, res) => {
         }
       });
   }
+});
+
+// SEARCH - show results of user-search
+router.get('/search', (req, res) => {
+  var query = req.query.search;
+  request('http://omdbapi.com/?s=' + query + '&apikey=thewdb', (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+      var data = JSON.parse(body);
+      if (data['Search'] != undefined) {
+        res.render('movies/search', {movies: data})
+      } else {
+        res.redirect('/movies');
+      }
+    }
+  });
 });
 
 // NEW - show form to create a new movie post

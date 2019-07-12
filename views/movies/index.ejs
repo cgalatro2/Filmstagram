@@ -2,78 +2,85 @@
 
 
 <div class='article'>
-    <div class="container-fluid mt-5 pt-4">
-        <div class="row">
-            <div class="col-8">
+  <div class="mt-5 pt-4">
+    <div class="row">
 
-                <div class="content-section">
-                    <% movies.forEach((movie) => { %>
-            					<div class='row mb-5'>
-            						<div class="card postcard">
-            							<div class='card-header'><%= movie.title %></div>
-            							<div class="d-flex justify-content-center">
-            								<img class="responsive movie-img" src="<%= movie.image %>" alt="Card image cap">
-            							</div>
-            							<p class='card-text'>
-            								<h3>
-            									COMMENTS
-            								</h3>
-            								<a href="/movies/<%= movie._id %>" class="btn btn-primary">More Info</a>
-            							</p>
-            						</div>
-            					</div>
-            				<% }); %>
-                </div>
-            </div>
-            <div class="col-4">
+      <div class="col 2"></div>
 
-              <div class="sidebar-main">
-                <div class="make-me-sticky">
+      <div class="col-5">
 
-                  <div class='row ml-2'>
-                    <div class='col-3'>
-                      <img
-                        src='https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-2.png'
-                        id = 'user-image'
-                      >
-                    </div>
-                    <div class='col-9 px-0'>
-
-                      <% if (!currentUser) { %>
-          							<div>
-          								No user <a href='/login'>Login</a>
-          							</div>
-          							<% } else { %>
-          							<div>
-          								<p class='my-0'><%= currentUser.fullName %></p>
-                          <p class='mb-1 text-secondary'><%= currentUser.username %></p>
-          							</div>
-          						<% } %>
-
-                    </div>
-                  </div>
-
-                  <div class="card mx-4 my-2" style="width: 17rem;">
-                    <div class="card-body">
-                      <h6 class="card-subtitle mb-2 text-muted">Stories</h6>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-
-                  <div class="card mx-4 my-2" style="width: 17rem;">
-                    <div class="card-body">
-                      <h6 class="card-subtitle mb-2 text-muted">Suggestions For You</h6>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-
-            </div>
+        <div class="content-section">
+          <% movies.forEach((movie) => { %>
+  					<div class='row mb-5'>
+  						<div class="card postcard">
+  							<div class='card-header'><%= movie.title %></div>
+  							<div class="d-flex justify-content-center">
+  								<img class="movie-img" src="<%= movie.image %>" alt="Card image cap">
+  							</div>
+  							<p class='card-text'>
+  								<h3>
+  									COMMENTS
+  								</h3>
+  								<a href="/movies/<%= movie._id %>" class="btn btn-primary">More Info</a>
+  							</p>
+  						</div>
+  					</div>
+  				<% }); %>
         </div>
+      </div>
+
+      <div class="col-3">
+
+        <div class="sidebar-main">
+          <div class="make-me-sticky">
+
+            <div class='row ml-2'>
+              <div class='col-3'>
+                <img
+                  src='https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-2.png'
+                  id = 'user-image'
+                >
+              </div>
+              <div class='col-9 px-0'>
+
+                <% if (!currentUser) { %>
+    							<div>
+    								No user <a href='/login'>Login</a>
+    							</div>
+    							<% } else { %>
+    							<div>
+    								<p class='my-0'><%= currentUser.fullName %></p>
+                    <p class='mb-1 text-secondary'><%= currentUser.username %></p>
+    							</div>
+    						<% } %>
+
+              </div>
+            </div>
+
+            <div class="card mx-4 my-2" style="width: 17rem;">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Stories</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+
+            <div class="card mx-4 my-2" style="width: 17rem;">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Suggestions For You</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col-2"></div>
+
     </div>
+  </div>
 </div>
 
 <% include ../partials/footer %>
