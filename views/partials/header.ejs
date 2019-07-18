@@ -60,6 +60,9 @@
 							</span>
 						<% } else { %>
 							<span>
+								<a class="nav-link text-dark" href='/movies/new'>Post</a>
+							</span>
+							<span>
 								<a class="nav-link text-dark" href='/about'>About</a>
 							</span>
 							<span>
@@ -71,3 +74,13 @@
 		  </div>
 
 		</nav>
+
+		<div class="container mt-5">
+	     <% if (error && error.length > 0) { %>
+	       <div class="alert alert-danger"><p><%= error %></p></div>
+	     <% } %>
+
+	     <% if (success && success.length > 0) { %>
+	       <div class="alert alert-success"><p><%= success %></p></div>
+	     <% } %>
+	  </div>

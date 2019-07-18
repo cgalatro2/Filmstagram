@@ -57,6 +57,14 @@ html, body {
   margin-top: 7rem;
 }
 
+#show-div {
+  margin-top: 6rem;
+}
+
+.show-card {
+  max-height: 34rem;
+}
+
 .fas.fa-video.fa-2x {
 	margin-right: 1.05rem;
 }

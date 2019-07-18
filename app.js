@@ -13,9 +13,11 @@ const express 				= require('express'),
 	  	methodOverride	= require("method-override");
 
 const app = express();
+require('dotenv').config();
+var sessionStore = new session.MemoryStore;
 
 // CONNECTING TO DB
-const uri = 'mongodb+srv://devUser:devUserPassword@cluster0-64kw3.mongodb.net/test?retryWrites=true&w=majority';
+const uri = process.env.MONGODB_URI;
 mongoose.connect(uri, {
 	useNewUrlParser: true,
 	useCreateIndex: true
@@ -36,14 +38,22 @@ app.use(express.static(__dirname + "/public"));
 app.use(cookieParser('secret'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: false
+  cookie: { maxAge: 60000 },
+  store: sessionStore,
+  saveUninitialized: true,
+  resave: 'true',
+  secret: 'secret'
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
 app.use(flash());
+app.use((req, res, next) => {
+  // if there's a flash message in the session request, make it available in the response, then delete it
+  res.locals.sessionFlash = req.session.sessionFlash;
+  delete req.session.sessionFlash;
+  next();
+});
 app.locals.moment = require('moment');
 // seedDB(); //seed the database
 

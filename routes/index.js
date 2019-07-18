@@ -3,10 +3,11 @@ var router  = express.Router();
 var passport = require("passport");
 var bodyParser = require('body-parser');
 var User = require("../models/user");
+var Movie = require("../models/movie");
 
 // ROOT route
-router.get("/", function(req, res){
-    res.render("landing");
+router.get("/", (req, res) => {
+  res.render("landing");
 });
 
 // SHOW about page
@@ -15,14 +16,14 @@ router.get('/about', (req, res) => {
 })
 
 // SHOW register form
-router.get("/register", function(req, res){
-   res.render("register", {page: 'register'});
+router.get("/register", (req, res) => {
+  res.render("register", {page: 'register'});
 });
 
 // HANDLE sign up logic
 router.post('/register', (req, res) => {
 	var newUser = new User({username: req.body.username, fullName: req.body.fullName});
-	if(req.body.adminCode === process.env.ADMIN_CODE) {
+	if (req.body.adminCode === process.env.ADMIN_CODE) {
     newUser.isAdmin = true;
 	}
 	User.register(newUser, req.body.password, (err, user) => {
@@ -39,20 +40,20 @@ router.post('/register', (req, res) => {
 
 // SHOW login form
 router.get("/login", (req, res) => {
-   res.render("login", {page: 'login'});
+  res.render("login", {page: 'login'});
 });
 
 //handling login logic
 router.post("/login",
 	passport.authenticate("local",
     {
-        successRedirect: "/movies",
-        failureRedirect: "/login",
-        failureFlash: true,
-        successFlash: 'Welcome to Moviestagram!'
+      successRedirect: "/movies",
+      failureRedirect: "/login",
+      failureFlash: true,
+      successFlash: 'Welcome to Filmstagram!'
     }),
-	(req, res) => {
-	console.log('warked');
+    (req, res) => {
+    console.log('warked');
 });
 
 // router.post('/login',
@@ -67,7 +68,24 @@ router.post("/login",
 router.get("/logout", (req, res) => {
 	req.logout();
 	req.flash("success", "See you later!");
-	res.redirect("/movies");
+	res.redirect("/login");
+});
+
+router.get('/users/:id', (req, res) => {
+  User.findById(req.params.id, (err, user) => {
+      if (err) {
+        console.log(err);
+        res.redirect('/movies');
+      } else {
+        Movie.find().where('author.id').equals(user._id).exec((err, movies) => {
+          if (err) {
+            console.log(err);
+            res.redirect('/movies');
+          }
+          res.render('users/show', {user: user, movies: movies});
+        });
+      }
+  });
 });
 
 

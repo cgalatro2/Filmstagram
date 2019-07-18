@@ -13,7 +13,11 @@
           <% movies.forEach((movie) => { %>
   					<div class='row mb-5'>
   						<div class="card postcard">
-  							<div class='card-header'><%= movie.title %></div>
+  							<div class='card-header'>
+                  <a href="/users/<%= movie.author.id %>">
+                    <%= movie.author.username %>
+                  </a>
+                </div>
   							<div class="d-flex justify-content-center">
   								<img class="movie-img" src="<%= movie.image %>" alt="Card image cap">
   							</div>
@@ -21,7 +25,7 @@
   								<h3>
   									COMMENTS
   								</h3>
-  								<a href="/movies/<%= movie._id %>" class="btn btn-primary">More Info</a>
+  								<a href="/movies/<%= movie._id %>" class="btn btn-primary">Comment</a>
   							</p>
   						</div>
   					</div>

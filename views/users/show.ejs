@@ -1,0 +1,11 @@
+<% include ../partials/header %>
+
+  <h1>User Profile page</h1>
+
+  <% movies.forEach((movie) => { %>
+    <div class='text-center'>
+      <img src='<%= movie.image %>'>
+    </div>
+  <% }) %>
+
+<% include ../partials/footer %>

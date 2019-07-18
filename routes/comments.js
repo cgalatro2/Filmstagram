@@ -19,15 +19,15 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 
 //Comments Create
-router.post("/", isLoggedIn, function(req, res){
-   //lookup campground using ID
-   Campground.findById(req.params.id, function(err, campground){
-       if(err){
+router.post("/", isLoggedIn, (req, res) => {
+   //lookup movie using ID
+   Movie.findById(req.params.id, (err, movie) => {
+       if (err) {
            console.log(err);
-           res.redirect("/campgrounds");
+           res.redirect("/movies");
        } else {
-        Comment.create(req.body.comment, function(err, comment){
-           if(err){
+        Comment.create(req.body.comment, (err, comment) => {
+           if (err) {
                console.log(err);
            } else {
                //add username and id to comment
@@ -35,51 +35,51 @@ router.post("/", isLoggedIn, function(req, res){
                comment.author.username = req.user.username;
                //save comment
                comment.save();
-               campground.comments.push(comment);
-               campground.save();
+               movie.comments.push(comment);
+               movie.save();
                console.log(comment);
                req.flash('success', 'Created a comment!');
-               res.redirect('/campgrounds/' + campground._id);
+               res.redirect('/movies/' + movie._id);
            }
         });
        }
    });
 });
 
-router.get("/:commentId/edit", isLoggedIn, checkUserComment, function(req, res){
-  res.render("comments/edit", {campground_id: req.params.id, comment: req.comment});
+router.get("/:commentId/edit", isLoggedIn, checkUserComment, (req, res) => {
+  res.render("comments/edit", {movie_id: req.params.id, comment: req.comment});
 });
 
 router.put("/:commentId", isAdmin, function(req, res){
-   Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, function(err, comment){
+   Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, (err, comment) => {
        if(err){
           console.log(err);
            res.render("edit");
        } else {
-           res.redirect("/campgrounds/" + req.params.id);
+           res.redirect("/movies/" + req.params.id);
        }
-   }); 
+   });
 });
 
-router.delete("/:commentId", isLoggedIn, checkUserComment, function(req, res){
-  // find campground, remove comment from comments array, delete comment in db
-  Campground.findByIdAndUpdate(req.params.id, {
+router.delete("/:commentId", isLoggedIn, checkUserComment, (req, res) => {
+  // find movie, remove comment from comments array, delete comment in db
+  Movie.findByIdAndUpdate(req.params.id, {
     $pull: {
       comments: req.comment.id
     }
-  }, function(err) {
-    if(err){ 
+  }, (err) => {
+    if(err){
         console.log(err);
         req.flash('error', err.message);
         res.redirect('/');
     } else {
-        req.comment.remove(function(err) {
+        req.comment.remove((err) => {
           if(err) {
             req.flash('error', err.message);
             return res.redirect('/');
           }
           req.flash('error', 'Comment deleted!');
-          res.redirect("/campgrounds/" + req.params.id);
+          res.redirect("/movies/" + req.params.id);
         });
     }
   });

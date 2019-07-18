@@ -4,7 +4,29 @@ var request = require('request');
 var Movie = require("../models/movie");
 var Comment = require("../models/comment");
 var middleware = require("../middleware");
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+  // accept image files only
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+      return cb(new Error('Only image files are allowed!'), false);
+  }
+  cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({
+  cloud_name: 'cgalatro',
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 // var geocoder = require('geocoder');
+
 var { isLoggedIn, checkUserCampground, checkUserComment, isAdmin, isSafe } = middleware; // destructuring assignment
 
 // Define escapeRegex function for search feature
@@ -60,27 +82,42 @@ router.get('/new', (req, res) => {
 });
 
 //CREATE - add new movie to DB
-router.post("/", isLoggedIn, (req, res) => {
-  	// get data from form and add to movies array
-  	var title = req.body.title;
-  	var image = req.body.image;
-  	var desc = req.body.description;
-  	// var author = {
-  	// id: req.user._id,
-  	// username: req.user.username
-  	// };
-	var author = req.user._id;
-    var newMovie = {title: title, image: image, description: desc, author: author};
-    // Create a new movie and save to DB
-    Movie.create(newMovie, (err, newlyCreated) => {
-        if(err){
-            console.log(err);
-        } else {
-            //redirect back to campgrounds page
-            console.log(newlyCreated);
-            res.redirect("/movies");
-        }
-    });
+router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
+  cloudinary.uploader.upload(req.file.path, (result) => {
+  // add cloudinary url for the image to the campground object under image property
+  req.body.campground.image = result.secure_url;
+  // add author to campground
+  req.body.campground.author = {
+    id: req.user._id,
+    username: req.user.username
+  }
+  Campground.create(req.body.campground, (err, campground) => {
+    if (err) {
+      req.flash('error', err.message);
+      return res.redirect('back');
+    }
+    res.redirect('/campgrounds/' + campground.id);
+  });
+  });
+	// get data from form and add to movies array
+	var title = req.body.title;
+	var image = req.body.image;
+	var desc = req.body.description;
+	var author = {
+  	id: req.user._id,
+  	username: req.user.username
+	};
+  var newMovie = {title: title, image: image, description: desc, author: author};
+  // Create a new movie and save to DB
+  Movie.create(newMovie, (err, newlyCreated) => {
+    if(err){
+      console.log(err);
+    } else {
+      //redirect back to campgrounds page
+      console.log(newlyCreated);
+      res.redirect("/movies");
+    }
+  });
 });
 
 // SHOW - shows more info about one movie

@@ -12,7 +12,17 @@
   </head>
 	<body>
 
-    <div id='login-div' class="mt-2 container d-flex flex-column">
+		<div class="container mt-5">
+	     <% if (error && error.length > 0) { %>
+	       <div class="alert alert-danger"><p><%= error %></p></div>
+	     <% } %>
+
+	     <% if (success && success.length > 0) { %>
+	       <div class="alert alert-success"><p><%= success %></p></div>
+	     <% } %>
+	  </div>
+
+		<div id='login-div' class="mt-2 container d-flex flex-column">
       <div class='row'>
         <div class="card my-2 mx-auto" style='width: 20rem;'>
           <div class='card-title mt-4'>
