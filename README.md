@@ -1,4 +1,4 @@
-# Yellowcake
+# Filmstagram
 
 [Filmstagram](https://evening-fortress-41477.herokuapp.com/) is my first solo-project, created with the intention of refining my ability to implement a full-stack web application using RESTful routing.
 
