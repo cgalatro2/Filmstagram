@@ -10,10 +10,10 @@ var storage = multer.diskStorage({
     callback(null, Date.now() + file.originalname);
   }
 });
-var imageFilter = function (req, file, cb) {
+var imageFilter = (req, file, cb) => {
   // accept image files only
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-      return cb(new Error('Only image files are allowed!'), false);
+    return cb(new Error('Only image files are allowed!'), false);
   }
   cb(null, true);
 };
@@ -31,38 +31,38 @@ var { isLoggedIn, checkUserCampground, checkUserComment, isAdmin, isSafe } = mid
 
 // Define escapeRegex function for search feature
 function escapeRegex(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 //INDEX - show all movies
 router.get("/", isLoggedIn, (req, res) => {
-  if(req.query.search && req.xhr) {
-      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-      // Get all campgrounds from DB
-      Movie.find({name: regex}, function(err, allMovies){
-         if(err){
-            console.log(err);
-         } else {
-            res.status(200).json(allMovies);
-         }
-      });
-  } else {
-    // Get all campgrounds from DB
-    Movie.find({}, (err, allMovies) => {
-      if(err){
+  if (req.query.search && req.xhr) {
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    // Get all movies from DB
+    Movie.find({name: regex}, function(err, allMovies){
+      if (err) {
         console.log(err);
+      } else {
+        res.status(200).json(allMovies);
+      }
+    });
+  } else {
+    // Get all movies from DB
+    Movie.find({}, (err, allMovies) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (req.xhr) {
+          res.json(allMovies);
         } else {
-          if(req.xhr) {
-            res.json(allMovies);
-          } else {
-            res.render("movies/index",{movies: allMovies, page: 'movies'});
-          }
+          res.render("movies/index",{movies: allMovies, page: 'movies'});
         }
-      });
+      }
+    });
   }
 });
 
 // SEARCH - show results of user-search
-router.get('/search', (req, res) => {
+router.get('/search', isLoggedIn, (req, res) => {
   var query = req.query.search;
   request('http://omdbapi.com/?s=' + query + '&apikey=thewdb', (error, response, body) => {
     if (!error && response.statusCode == 200) {
@@ -77,28 +77,22 @@ router.get('/search', (req, res) => {
 });
 
 // NEW - show form to create a new movie post
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
 	res.render('movies/new');
 });
 
 //CREATE - add new movie to DB
 router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
-  cloudinary.uploader.upload(req.file.path, (result) => {
-  // add cloudinary url for the image to the campground object under image property
-  req.body.campground.image = result.secure_url;
-  // add author to campground
-  req.body.campground.author = {
-    id: req.user._id,
-    username: req.user.username
-  }
-  Campground.create(req.body.campground, (err, campground) => {
-    if (err) {
-      req.flash('error', err.message);
-      return res.redirect('back');
+  // console.log(req.body);
+  cloudinary.uploader.upload(req.body.file.path, (result) => {
+    // add cloudinary url for the image to the movie object under image property
+    req.body.movie.image = result.secure_url;
+    // add author to movie
+    req.body.movie.author = {
+      id: req.user._id,
+      username: req.user.username
     }
-    res.redirect('/campgrounds/' + campground.id);
-  });
-  });
+  }
 	// get data from form and add to movies array
 	var title = req.body.title;
 	var image = req.body.image;
@@ -113,7 +107,7 @@ router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
     if(err){
       console.log(err);
     } else {
-      //redirect back to campgrounds page
+      //redirect back to movies page
       console.log(newlyCreated);
       res.redirect("/movies");
     }
@@ -121,7 +115,7 @@ router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
 });
 
 // SHOW - shows more info about one movie
-router.get("/:id", (req, res) => {
+router.get("/:id", isLoggedIn, (req, res) => {
     //find the movie with provided ID
     Movie.findById(req.params.id).populate("comments").exec((err, foundMovie) => {
         if(err || !foundMovie){
