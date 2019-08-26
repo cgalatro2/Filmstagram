@@ -38,7 +38,7 @@ router.get("/", isLoggedIn, (req, res) => {
   if (req.query.search && req.xhr) {
     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
     // Get all movies from DB
-    Movie.find({name: regex}, function(err, allMovies){
+    Movie.find({name: regex}, (err, allMovies) => {
       if (err) {
         console.log(err);
       } else {
@@ -47,7 +47,7 @@ router.get("/", isLoggedIn, (req, res) => {
     });
   } else {
     // Get all movies from DB
-    Movie.find({}, (err, allMovies) => {
+    Movie.find({}).populate("comments likes").exec((err, allMovies) => {
       if (err) {
         console.log(err);
       } else {
@@ -82,17 +82,17 @@ router.get('/new', isLoggedIn, (req, res) => {
 });
 
 //CREATE - add new movie to DB
-router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
+router.post("/", isLoggedIn, (req, res) => {
   // console.log(req.body);
-  cloudinary.uploader.upload(req.body.file.path, (result) => {
-    // add cloudinary url for the image to the movie object under image property
-    req.body.movie.image = result.secure_url;
-    // add author to movie
-    req.body.movie.author = {
-      id: req.user._id,
-      username: req.user.username
-    }
-  }
+  // cloudinary.uploader.upload(req.body.file.path, (result) => {
+  //   // add cloudinary url for the image to the movie object under image property
+  //   req.body.movie.image = result.secure_url;
+  //   // add author to movie
+  //   req.body.movie.author = {
+  //     id: req.user._id,
+  //     username: req.user.username
+  //   }
+  // })
 	// get data from form and add to movies array
 	var title = req.body.title;
 	var image = req.body.image;
@@ -114,10 +114,42 @@ router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
   });
 });
 
+// LIKE - post route for hitting the like button for a movie
+router.post("/:id/like", middleware.isLoggedIn, (req, res) => {
+  Movie.findById(req.params.id, (err, movie) => {
+    if (err) {
+      console.log(err);
+      return res.redirect("/movies");
+    }
+
+    // check if req.user._id exists in foundCampground.likes
+    var foundUserLike = movie.likes.some((like) => {
+      return like.equals(req.user._id);
+    });
+
+    if (foundUserLike) {
+      // user already liked, removing like
+      movie.likes.pull(req.user._id);
+    } else {
+      // adding the new user like
+      movie.likes.push(req.user);
+    }
+
+    movie.save((err) => {
+      if (err) {
+        console.log(err);
+        return res.redirect("/movies");
+      }
+      if (foundUserLike) return res.redirect('/movies')
+      return res.redirect("/movies/" + movie._id);
+    });
+  });
+});
+
 // SHOW - shows more info about one movie
 router.get("/:id", isLoggedIn, (req, res) => {
     //find the movie with provided ID
-    Movie.findById(req.params.id).populate("comments").exec((err, foundMovie) => {
+    Movie.findById(req.params.id).populate("comments likes").exec((err, foundMovie) => {
         if(err || !foundMovie){
             console.log(err);
             req.flash('error', 'Sorry, that movie has not been posted!');

@@ -5,9 +5,9 @@
   <div class="mt-5 pt-4">
     <div class="row">
 
-      <div class="col 2"></div>
+      <div class="col 3"></div>
 
-      <div class="col-5">
+      <div class="col-4">
 
         <div class="content-section">
           <% movies.forEach((movie) => { %>
@@ -22,6 +22,28 @@
   								<img class="movie-img" src="<%= movie.image %>" alt="Card image cap">
   							</div>
   							<p class='card-text'>
+                  <form action="/movies/<%= movie._id %>/like" method="POST">
+                    <div class="btn-group">
+                      <% if (currentUser && movie.likes.some((like) => {
+                        return like.equals(currentUser._id)
+                      })) { %>
+                        <button class="btn btn-sm btn-primary">
+                          <i class="far fa-heart"></i> Liked (<%= movie.likes.length %>)
+                        </button>
+                      <% } else { %>
+                        <button class="btn btn-sm btn-secondary">
+                          <i class="far fa-heart"></i> Like (<%= movie.likes.length %>)
+                        </button>
+                      <% } %>
+                      <button
+                        type="button" class="btn btn-sm btn-default"
+                        data-toggle="modal" data-target="#movieLikes"
+                      >
+                        See more details
+                      </button>
+
+                    </div>
+                </form>
   								<h3>
   									COMMENTS
   								</h3>
@@ -29,6 +51,47 @@
   							</p>
   						</div>
   					</div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="movieLikes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Movie likes: <%= movie.likes.length %></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                        <th>Liked by:</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% movie.likes.forEach((like) => { %>
+                        <tr>
+                          <td><span class="badge"><i class="fas fa-user"></i></span> <%= like.username %></td>
+                        </tr>
+                      <% }); %>
+                      <% if (movie.likes.length === 0) { %>
+                        <tr>
+                          <td><em>No likes yet.</em></td>
+                        </tr>
+                      <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
   				<% }); %>
         </div>
       </div>
@@ -64,7 +127,7 @@
             <div class="card mx-4 my-2" style="width: 17rem;">
               <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-muted">Stories</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">Story Section Coming Soon!</p>
               </div>
             </div>
 
@@ -86,5 +149,7 @@
     </div>
   </div>
 </div>
+
+
 
 <% include ../partials/footer %>

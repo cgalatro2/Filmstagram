@@ -1,24 +1,26 @@
-<script>
-// When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
-window.onscroll = function() {scrollFunction()};
+    <script>
+      // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
+      window.onscroll = function() {scrollFunction()};
 
-function scrollFunction() {
-  if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
-    document.getElementById("navbar").style.height = "2.85rem";
-    document.getElementsByClassName('make-me-sticky')[0].style.paddingTop = '75px';
-    document.getElementById("filmsta").style.opacity = "0";
-    document.getElementById("filmsta-div").style.borderLeft = "1px solid white";
-  } else {
-    document.getElementById("navbar").style.height = "4.4rem";
-    document.getElementsByClassName('make-me-sticky')[0].style.paddingTop = '0';
-    document.getElementById("filmsta").style.opacity = "1";
-    document.getElementById("filmsta-div").style.borderLeft = "1px solid black";
-  }
-}
+      function scrollFunction() {
+        if (document.body.scrollTop > 60 || document.documentElement.scrollTop > 60) {
+          document.getElementById("navbar").style.height = "2.85rem";
+          document.getElementsByClassName('make-me-sticky')[0].style.paddingTop = '75px';
+          document.getElementById("filmsta").style.opacity = "0";
+          document.getElementById("filmsta-div").style.borderLeft = "1px solid white";
+        } else {
+          document.getElementById("navbar").style.height = "4.4rem";
+          document.getElementsByClassName('make-me-sticky')[0].style.paddingTop = '0';
+          document.getElementById("filmsta").style.opacity = "1";
+          document.getElementById("filmsta-div").style.borderLeft = "1px solid black";
+        }
+      }
 
+    </script>
 
-
-</script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
 
   </body>
 </html>
