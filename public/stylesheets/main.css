@@ -68,6 +68,13 @@ html, body {
 .fas.fa-video.fa-2x {
 	margin-right: 1.05rem;
 }
+
+.fabutton {
+  background: none;
+  padding: 0px;
+  border: none;
+  margin: 0 1rem;
+}
 /* Add responsiveness - on screens less than 580px wide, display the navbar vertically instead of horizontally
 @media screen and (max-width: 580px) {
   #navbar {
